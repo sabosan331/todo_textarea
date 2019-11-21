@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <meta charset="UTF-8">
+    <title>TODOリスト</title>
+    <style>
+        html {
+            background-color: rgb(50, 50, 50);
+            color:rgb(240, 240, 240)
+        }
+        ul {
+           list-style: none;
+           margin:0;
+           padding:0;
+        }
+        div{
+            min-width:500px;
+            flex: 1;
+            margin-right: 100px;
+            margin-left: 100px;
+            padding:20px;
+            text-align: left;
+            border-style: solid;
+            
+        }
+
+        textarea {
+            flex:1;
+            background-color:black;
+            color:white;
+        }
+
+    </style>
+</head>
+
+
+<body>
+<h1 align="center">TO DO LIST</h1>
+<textarea align="center" id="todo" name="story" placeholder="put your todo lists"
+          rows="50" cols="120">
+hogehoge
+</textarea>
+<br>
+<button id="save_button" onclick="save_text()">save</button>
+</body>
+
+<script>
+
+
+var todoText = document.getElementById("todo"); 
+
+
+axios.post('/onload', {})
+.then(function (res) {
+    console.log(res);
+    todoText.value = res.data[0].item; // change text area.
+});
+
+function save_text(){
+
+    axios.post('/save', {item : todoText.value})
+    .then(function (response) {
+        console.log(response);
+        // render(response.data);
+    });
+// .catch(function (error) {
+//     console.log(error);
+// });
+};
+
+
+</script>
+
+</html>
